@@ -1,0 +1,38 @@
+.body-indicators-player {
+    border-left: 1.3px solid #f1e6e6;
+    border-right: 1.3px solid #f1e6e6;
+}
+
+.container-player {
+    display: block;
+    margin: 10px auto;
+    width: 50%;
+}
+
+.container-player table {
+	border-collapse: collapse;
+}
+
+.container-player td {
+	background-color: #f2f2f2;
+	padding: 8px;
+}
+
+.container-player .ready-play,
+.container-player .stop-play {
+    cursor: pointer;
+    color: #fff;
+    background-color: #b3b3b3;
+    border-radius: 100%;
+    font-size: 15px;
+    padding: 10px;
+}
+
+.container-icons-player .ready-play {
+	display: block;
+}
+
+.container-icons-player .stop-play,
+#player-tag {
+	display: none;
+}
