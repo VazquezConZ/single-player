@@ -45,8 +45,7 @@ function _setTimer(_filters)
 			}, {
 			  tags: ["title","artist","album","picture"]
 			});
-			$_totalSecondsTrack = Math.round($('#player-tag')[0].duration);
-			console.log($_totalSecondsTrack);
+			$_totalSecondsTrack = Math.round($('#player-tag')[0].duration);			
 			var  to_sencods = $(_filters[0])
 				,to_minutes = $(_filters[1]);
 				try {
@@ -54,8 +53,7 @@ function _setTimer(_filters)
 					$('.total-track-time').html(_setTimerTrack($_totalSecondsTrack));
 					$_interval = setInterval(function() {
 						$_timerSeconds++;
-						$_timerAuxSeconds++;
-						console.log($_timerSeconds);
+						$_timerAuxSeconds++;						
 						if ( $_timerSeconds == $_totalSecondsTrack ) {
 							_stopPlayer()
 							_resetPlayer(_filters);
