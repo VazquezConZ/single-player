@@ -19,4 +19,13 @@ Requirements:
   
   > HTML5
   
+Featured Features
+  > This player have a counter to indicate the time of the track.
+  
+  > Single Player detect how much time has the track and show it by the side of the counter
+  
+  > Detect when the audio is ended and stop the track
+  
+  > Detect all the music meta data with ID3 for show the artist and title of the track
+  
 Enjoy and run index.html for start!
