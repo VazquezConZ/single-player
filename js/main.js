@@ -87,12 +87,12 @@ function _setTimer(_filters)
 							}
 						}, 1000);
 					} catch (e) {
-
+						alert("Error: "+e);
 					}
 			});
 		},100);
 	} catch (e) {
-
+		alert("Error: "+e);
 	}
 }
 
@@ -110,7 +110,7 @@ function _resetPlayer(_filters)
 	try {
 		clearInterval($_interval);
 	} catch (e) {
-
+		alert("Error: "+e);
 	}
 }
 
@@ -153,6 +153,6 @@ function showTags(url) {
   		return '<b>'+artist+'</b>' + ' - ' + '<b>'+title+'</b>'
   	});
   } catch(e) {
-  	
+  	alert("Error: "+e);
   }
 }
