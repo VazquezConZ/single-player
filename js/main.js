@@ -13,7 +13,7 @@ var  $_beginCounter = 0
 		event.stopImmediatePropagation();
 		$(this).hide();
 		$('.stop-play').css({'display':'block'});
-		$('.body-indicators-player').html('Cargando pista...');
+		$('.body-indicators-player').html('Loading, please wait...');
 		_startPlayer();
 	});
 	//stop music
@@ -32,7 +32,7 @@ function _stopPlayer()
 {
 	$('.stop-play').hide();
 	$('.ready-play').css({'display':'block'});
-	$('.body-indicators-player').html('Detenido');
+	$('.body-indicators-player').html('Stopped');
 }
 
 function _setTimer(_filters)
