@@ -45,44 +45,51 @@ function _setTimer(_filters)
 			}, {
 			  tags: ["title","artist","album","picture"]
 			});
-			$_totalSecondsTrack = Math.round($('#player-tag')[0].duration);			
-			var  to_sencods = $(_filters[0])
-				,to_minutes = $(_filters[1]);
-				try {
-					$('#player-tag')[0].play();
-					$('.total-track-time').html(_setTimerTrack($_totalSecondsTrack));
-					$_interval = setInterval(function() {
-						$_timerSeconds++;
-						$_timerAuxSeconds++;						
-						if ( $_timerSeconds == $_totalSecondsTrack ) {
-							_stopPlayer()
-							_resetPlayer(_filters);
-						}
-						else {
-							if ( $_timerAuxSeconds == 60 ) {
-								$_timerMinutes++;
-								if ( $_timerMinutes < 10 ) {
-									to_minutes.html('0' + $_timerMinutes);
-								}
-								else {
-									to_minutes.html($_timerMinutes);
-								}								
-								to_sencods.html('00');
-								$_timerAuxSeconds = 0;
+
+			var audio = new Audio();
+			audio.src = $('#player-tag').attr('src');
+			audio.addEventListener('loadedmetadata', function() {
+				$_totalSecondsTrack = Math.round(audio.duration);
+				
+				var  to_sencods = $(_filters[0])
+					,to_minutes = $(_filters[1]);
+					try {
+						$('#player-tag')[0].play();
+						$('.total-track-time').html(_setTimerTrack($_totalSecondsTrack));
+						$_interval = setInterval(function() {
+							$_timerSeconds++;
+							$_timerAuxSeconds++;
+							
+							if ( $_timerSeconds == $_totalSecondsTrack ) {
+								_stopPlayer()
+								_resetPlayer(_filters);
 							}
 							else {
-								if ( $_timerAuxSeconds < 10 ) {
-									to_sencods.html('0' + $_timerAuxSeconds);
-								} 
+								if ( $_timerAuxSeconds == 60 ) {
+									$_timerMinutes++;
+									if ( $_timerMinutes < 10 ) {
+										to_minutes.html('0' + $_timerMinutes);
+									}
+									else {
+										to_minutes.html($_timerMinutes);
+									}								
+									to_sencods.html('00');
+									$_timerAuxSeconds = 0;
+								}
 								else {
-									to_sencods.html($_timerAuxSeconds);
+									if ( $_timerAuxSeconds < 10 ) {
+										to_sencods.html('0' + $_timerAuxSeconds);
+									} 
+									else {
+										to_sencods.html($_timerAuxSeconds);
+									}
 								}
 							}
-						}
-					}, 1000);
-				} catch (e) {
+						}, 1000);
+					} catch (e) {
 
-				}
+					}
+			});
 		},100);
 	} catch (e) {
 
@@ -107,31 +114,16 @@ function _resetPlayer(_filters)
 	}
 }
 
-function _setTimerTrack(segundos)
+function _setTimerTrack(_seconds)
 {
-	var op = parseFloat(segundos / 60);
-	if ( op > 1 ) {
-		var minutos = (op).toString();
-		
-		var cantidad = minutos.split('.');
-		var minutos = parseInt(cantidad[0]);
-		var segundos = cantidad[1];
-		var substrsegundos = parseInt(segundos.charAt(0)+segundos.charAt(1));
-		segundos = substrsegundos;
-		var minuto_final = 0, segundos_finales = 0, diferencia_segundos = substrsegundos;
-
-		if ( segundos >= 60 ) {
-			diferencia_segundos = segundos - 60;
-			minutos = minutos+1;
-		}
-
-		diferencia_segundos = (diferencia_segundos < 10) ? '0'+diferencia_segundos : diferencia_segundos;
-		minutos = ( minutos < 10 ) ? '0'+minutos : minutos;
-		return minutos + ':' + diferencia_segundos; 
-	}
-	else {
-		return '00:' + segundos; 
-	}
+	var _relativeMinutes = (_seconds / 60).toString();
+	var _buildTime =  _relativeMinutes.split('.');
+	var _buildMinutes = parseInt(_buildTime[0]),
+		_buildSeconds = parseFloat('.'+_buildTime[1]);
+	var _roundSegs = Math.round((_buildSeconds*60));
+	var _finalSeconds = (_buildTime[1] > 1) ? (_roundSegs < 10) ? '0'+_roundSegs : _roundSegs : ( _seconds % 60 == 0 ) ? '00' : '01';
+	var _finalMinutes = ( _buildMinutes < 10 ) ? '0'+_buildMinutes : _buildMinutes;
+	return _finalMinutes+':'+_finalSeconds;
 }
 
 
@@ -161,6 +153,6 @@ function showTags(url) {
   		return '<b>'+artista+'</b>' + ' - ' + '<b>'+titulo+'</b>'
   	});
   } catch(e) {
-  	console.log(e)
+  	
   }
 }
