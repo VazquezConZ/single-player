@@ -12,7 +12,7 @@ var  $_beginCounter = 0
 	$('body').on('click', '.ready-play', function ( event ) {
 		event.stopImmediatePropagation();
 		$(this).hide();
-		document.getElementsByClassName('stop-play')[0].style.display = 'block';
+		$('.stop-play').css({'display':'block'});
 		$('.body-indicators-player').html('Cargando pista...');
 		_startPlayer();
 	});
@@ -31,7 +31,7 @@ function _startPlayer()
 function _stopPlayer()
 {
 	$('.stop-play').hide();
-	document.getElementsByClassName('ready-play')[0].style.display = 'block';
+	$('.ready-play').css({'display':'block'});
 	$('.body-indicators-player').html('Detenido');
 }
 
@@ -148,9 +148,9 @@ function showTags(url) {
   var tags = ID3.getAllTags(url);
   try {
   	$('.body-indicators-player').html(function() {
-  		var titulo = (typeof(tags.title) == 'undefined') ? 'Track desconocido' : tags.title;
-  		var artista = (typeof(tags.artist) == 'undefined') ? 'Artista desconocido' : tags.artist;
-  		return '<b>'+artista+'</b>' + ' - ' + '<b>'+titulo+'</b>'
+  		var 	title = (typeof(tags.title) == 'undefined') ? 'Unknownk track' : tags.title,
+			artist = (typeof(tags.artist) == 'undefined') ? 'Unknownk artist' : tags.artist;
+  		return '<b>'+artist+'</b>' + ' - ' + '<b>'+title+'</b>'
   	});
   } catch(e) {
   	
